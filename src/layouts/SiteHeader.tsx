@@ -20,7 +20,7 @@ const SiteHeader = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const hideMobileMenu = (e) => {
+  const hideMobileMenu = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     setTimeout(() => {
       setIsMobileMenuOpen(false);
     }, 300);

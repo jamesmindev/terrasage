@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const Register = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
   };
