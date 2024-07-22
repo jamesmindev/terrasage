@@ -1,8 +1,37 @@
+"use client";
+import { useRef } from "react";
 import styles from "./OurPerformance.module.scss";
+import clsx from "clsx";
+
+// GSAP
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CustomEase } from "gsap/all";
+gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase);
 
 const OurPerformance = () => {
+  const containerRef = useRef();
+  useGSAP(
+    () => {
+      gsap.utils.toArray(".stat").forEach((el: any, index: number) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: ".stats-container",
+            start: "+=50px bottom",
+            // markers: true,
+          },
+          y: 20,
+          opacity: 0,
+          delay: index * 0.12,
+        });
+      });
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <section className={styles.OurPerformance}>
+    <section className={styles.OurPerformance} ref={containerRef}>
       <div className="wrapper">
         <h2>Our Performance</h2>
         <div className="stats-container">

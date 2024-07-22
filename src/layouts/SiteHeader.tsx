@@ -7,6 +7,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import Button from "@/components/Button";
 
+// GSAP
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -28,6 +29,21 @@ const SiteHeader = () => {
 
   // GSAP animation
   useGSAP(() => {
+    gsap.fromTo(
+      siteHeaderRef.current,
+      {
+        opacity: 0,
+        y: -10,
+      },
+      {
+        opacity: 1,
+        // y: 80,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.inOut",
+      },
+    );
+
     gsap.to(siteHeaderRef.current, {
       // x: 500,
       scrollTrigger: {
@@ -38,14 +54,18 @@ const SiteHeader = () => {
         toggleActions: "play complete complete reverse",
       },
       duration: 0.5,
-      background: "rgba(255, 255, 255, 0.3)",
+      background: "rgba(255, 255, 255, 0.4)",
       ease: "sine.inOut",
       backdropFilter: "blur(5px)",
     });
   });
 
   return (
-    <header ref={siteHeaderRef} className={styles.SiteHeader}>
+    <header
+      ref={siteHeaderRef}
+      className={styles.SiteHeader}
+      // style={{ opacity: 0 }}
+    >
       <div
         ref={siteHeaderWrapperRef}
         className={`wrapper ${isMobileMenuOpen ? "white-bg" : ""}`}
