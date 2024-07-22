@@ -1,6 +1,8 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import styles from "./FocusAreas.module.scss";
+import { useRef } from "react";
 
 const data = [
   {
@@ -41,9 +43,37 @@ const data = [
   },
 ];
 
+// GSAP
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CustomEase } from "gsap/all";
+import clsx from "clsx";
+gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase);
+
 const FocusAreas = () => {
+  const containerRef = useRef();
+
+  // GSAP
+  useGSAP(
+    () => {
+      gsap.utils.toArray(".card").forEach((el: any) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "center bottom",
+            // markers: true,
+          },
+          y: 50,
+          opacity: 0,
+        });
+      });
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <section className={styles.FocusAreas}>
+    <section className={styles.FocusAreas} ref={containerRef}>
       <div className="wrapper">
         <h2>Focus Areas</h2>
         <p>
